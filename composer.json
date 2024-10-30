@@ -1,0 +1,11 @@
+{
+    "name": "okaniyoshiii/galejad-pizzeria",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/backend/"
+        }
+    },
+    "require": {
+        "twig/twig": "^3.14"
+    }
+}
