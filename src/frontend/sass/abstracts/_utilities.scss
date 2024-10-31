@@ -15,6 +15,11 @@
     margin-inline: auto;
 }
 
+:where(.container-tiny) {
+    max-width: min(100% - 2rem, 400px);
+    margin-inline: auto;
+}
+
 .d-flex {
     display: flex !important;
 }

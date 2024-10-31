@@ -4,7 +4,9 @@
     <section id="hero-banner">
         <div class="img-fader">
             {% for i in 0..2 %}
-                <img src="public/images/banner-{{ loop.index }}.jpg" alt="">
+                <div class="fader-img">
+                    <img src="public/images/banner-{{ loop.index }}.jpg" alt="">
+                </div>
             {% endfor %}
         </div>
     </section>
@@ -26,6 +28,35 @@
                     <img src="public/images/boissons.jpg" alt="">
                 </div>
             </div>
+        </div>
+    </section>
+    <section>
+        <div class="container-large | text-center">
+            <h2 class="color-secondary">Votre traiteur pour tous vos grands événements ! </h2>
+        </div>
+        <div class="events-container">
+                <div class="events-card container-tiny">
+                    <p>Soucieux de votre satisfaction, votre pizzaïolo vous propose ses services de traiteur pour tous vos événements, à savoir :</p>
+                    <ul>
+                        <li>Un mariage</li>
+                        <li>Une communion</li>
+                        <li>Un anniversaire</li>
+                        <li>Un baptême</li>
+                        <li>Team building</li>
+                        <li>Repas d'association</li>
+                        <li>Gala</li>
+                    </ul>
+                    <p>Quel que soit le nombre d'invités, des plats élaborés avec passion et à base de produits frais et de qualité vous seront proposés. Vous aurez également le droit à des saveurs variées selon les saisons.</p>
+                    <p>C'est dans un esprit sympathique et familial que votre pizzaïolo est heureux de vous faire découvrir ses différents menus. Il met tout en œuvre pour vous garantir entière satisfaction.</p>
+                    <p>Vous pouvez louer les lieux pour toutes vos occasions.</p>
+                    <div class="img-fader">
+                        {% for i in 0..2 %}
+                        <div class="fader-img">
+                            <img src="public/images/events-{{ loop.index }}.jpg" alt="">
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
         </div>
     </section>
 {% endblock %}

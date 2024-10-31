@@ -33,6 +33,11 @@ img {
   margin-inline: auto;
 }
 
+:where(.container-tiny) {
+  max-width: min(100% - 2rem, 400px);
+  margin-inline: auto;
+}
+
 .d-flex {
   display: flex !important;
 }
@@ -102,12 +107,18 @@ img {
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
 }
-.img-fader > img {
+.img-fader > .fader-img {
   grid-row: 1;
   grid-column: 1;
   width: 100%;
+  height: 100%;
   max-height: 750px;
   object-fit: cover;
+}
+.img-fader > .fader-img > img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 @keyframes fadeOut {
@@ -126,6 +137,34 @@ img {
     justify-content: center;
     gap: 1rem;
   }
+}
+.events-container {
+  position: relative;
+  padding: 15px;
+}
+.events-container .img-fader {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.events-container .fader-img {
+  overflow: hidden;
+  max-height: 100%;
+}
+.events-container .img-fader > img {
+  max-height: 100%;
+  height: 100%;
+}
+
+.events-card {
+  grid-row: 1;
+  grid-column: 1;
+  z-index: 1;
+  padding: 30px;
+  margin-block: 15px;
+  background-color: rgba(235, 235, 235, 0.75);
+  box-shadow: 3px 3px 1px grey;
+  animation: bgImgFade 1500ms infinite;
 }
 
 /*# sourceMappingURL=main.css.map */
