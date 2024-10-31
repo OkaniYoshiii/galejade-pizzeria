@@ -1,3 +1,5 @@
+@use './variables' as *;
+
 :where(.container-large) {
     max-width: min(100% - 2rem, 1200px);
     margin-inline: auto;
@@ -15,4 +17,16 @@
 
 .d-flex {
     display: flex !important;
+}
+
+.color-primary {
+    color: $primary-color;
+}
+
+.color-secondary {
+    color: $secondary-color;
+}
+
+.text-center {
+    text-align: center;
 }

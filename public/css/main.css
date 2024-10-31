@@ -15,6 +15,7 @@ button:hover {
 img {
   display: block;
   max-width: 100%;
+  margin-inline: auto;
 }
 
 :where(.container-large) {
@@ -34,6 +35,18 @@ img {
 
 .d-flex {
   display: flex !important;
+}
+
+.color-primary {
+  color: rgb(161, 198, 88);
+}
+
+.color-secondary {
+  color: rgb(241, 58, 56);
+}
+
+.text-center {
+  text-align: center;
 }
 
 .logo {
@@ -92,8 +105,9 @@ img {
 .img-fader > img {
   grid-row: 1;
   grid-column: 1;
-  opacity: 1;
-  transition: opacity 1500ms;
+  width: 100%;
+  max-height: 750px;
+  object-fit: cover;
 }
 
 @keyframes fadeOut {
@@ -102,6 +116,15 @@ img {
   }
   100% {
     opacity: 0;
+  }
+}
+@media screen and (min-width: 700px) {
+  .products-imgs {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    justify-content: center;
+    gap: 1rem;
   }
 }
 
