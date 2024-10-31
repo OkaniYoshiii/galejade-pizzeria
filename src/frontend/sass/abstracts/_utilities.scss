@@ -1,0 +1,18 @@
+:where(.container-large) {
+    max-width: min(100% - 2rem, 1200px);
+    margin-inline: auto;
+}
+
+:where(.container-medium) {
+    max-width: min(100% - 2rem, 900px);
+    margin-inline: auto;
+}
+
+:where(.container-small) {
+    max-width: min(100% - 2rem, 600px);
+    margin-inline: auto;
+}
+
+.d-flex {
+    display: flex !important;
+}

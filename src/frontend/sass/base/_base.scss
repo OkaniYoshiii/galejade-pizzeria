@@ -1,0 +1,19 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+button {
+    display: block;
+    background: none;
+    border: none;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}

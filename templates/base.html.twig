@@ -4,8 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    {% block head_stylesheets %}
+        <link rel="stylesheet" href="public/css/main.css">
+    {% endblock %}
+
+    {% block head_scripts %}
+        <script type="module" src="public/js/script.js" defer></script>
+    {% endblock %}
 </head>
 <body>
-    <p>Bonjour le monde</p>
+    <header>
+        <img class="logo" src="public/images/logo.png" alt="">
+        <div class="nav__wrapper">
+            <nav class="nav | container-medium">
+                <button class="nav__btn" aria-label="Menu">
+                    <img src="public/svgs/burger.svg" alt="">
+                </button>
+                <ul class="nav__links">
+                    <li class="nav__link"><a href="/">Accueil</a></li>
+                    <li class="nav__link"><a href="/nos-pizzas">Nos pizzas</a></li>
+                    <li class="nav__link"><a href="/les-pizzas-sur-plaque">Les pizzas sur plaque</a></li>
+                    <li class="nav__link"><a href="/burger">Burger</a></li>
+                    <li class="nav__link"><a href="/boissons">Boissons</a></li>
+                    <li class="nav__link"><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+    <footer></footer>
 </body>
 </html>

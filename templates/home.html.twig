@@ -1,1 +1,14 @@
 {% extends 'base.html.twig' %}
+
+{% block main %}
+    <section id="hero-banner">
+        <div class="img-fader">
+            {% for i in 0..2 %}
+                <img src="public/images/banner-{{ loop.index }}.jpg" alt="">
+            {% endfor %}
+        </div>
+    </section>
+    <section>
+
+    </section>
+{% endblock %}

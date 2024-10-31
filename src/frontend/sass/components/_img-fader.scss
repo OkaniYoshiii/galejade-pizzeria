@@ -1,0 +1,24 @@
+.img-fader {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    
+    & > img {
+        grid-row: 1;
+        grid-column: 1;
+
+        opacity: 1;
+
+        transition: opacity 1500ms;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
