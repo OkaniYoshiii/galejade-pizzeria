@@ -48,13 +48,15 @@
             static PIECE_WIDTH = CANVAS.width / GRID_ROWS;
             static PIECE_HEIGHT = CANVAS.height / GRID_ROWS;
 
+            #ctx : CanvasRenderingContext2D;
             #img : HTMLImageElement;
             #posX : number;
             #posY : number;
             #width : number;
             #height : number;
 
-            constructor(img : HTMLImageElement, posX : number, posY : number, width : number, height : number) {
+            constructor(ctx : CanvasRenderingContext2D, img : HTMLImageElement, posX : number, posY : number, width : number, height : number) {
+                this.#ctx = ctx;
                 this.#img = img;
                 this.#posX = posX;
                 this.#posY = posY;
@@ -66,11 +68,27 @@
                 return this.#img;
             }
 
-            #updatePosition(x : number, y : number) {
+            get posX() {
+                return this.#posX;
+            }
+
+            get posY() {
+                return this.#posY;
+            }
+
+            get width() {
+                return this.#width;
+            }
+
+            get height() {
+                return this.#height;
+            }
+
+            updatePosition(x : number, y : number) {
                 this.#posX = x;
                 this.#posY = y;
 
-                // CTX?.drawImage(this.#img, this)
+                this.#ctx.drawImage(this.#img, this.#posX, this.#posY, this.#width, this.#height);
             }
         }
 
@@ -81,7 +99,7 @@
         const IMGS = document.querySelectorAll('img.slider__item') as NodeListOf<HTMLImageElement>;
         const CTX = CANVAS.getContext('2d');
 
-        function splitInPieces(img : HTMLImageElement) : void {
+        function splitInPieces(ctx : CanvasRenderingContext2D, img : HTMLImageElement) : ImagePiece[] {
             const IMG_PIECES : ImagePiece[] = [];
             const IMG_PIECE_WIDTH = Math.round(img.naturalWidth / GRID_COLUMNS);
             const IMG_PIECE_HEIGHT = Math.round(img.naturalHeight / GRID_ROWS);
@@ -92,9 +110,9 @@
                     const IMG_POSX = Math.round(IMG_PIECE_WIDTH * i);
                     const IMG_POSY = Math.round(IMG_PIECE_HEIGHT * j);
 
-                    CTX?.drawImage(img, IMG_POSX, IMG_POSY, IMG_PIECE_WIDTH, IMG_PIECE_HEIGHT, ImagePiece.PIECE_WIDTH * i, ImagePiece.PIECE_WIDTH * j, ImagePiece.PIECE_WIDTH, ImagePiece.PIECE_HEIGHT);
-                    CTX?.rect(ImagePiece.PIECE_WIDTH * i, ImagePiece.PIECE_WIDTH * j, ImagePiece.PIECE_WIDTH, ImagePiece.PIECE_HEIGHT);
-                    CTX?.stroke();
+                    ctx.drawImage(img, IMG_POSX, IMG_POSY, IMG_PIECE_WIDTH, IMG_PIECE_HEIGHT, ImagePiece.PIECE_WIDTH * i, ImagePiece.PIECE_WIDTH * j, ImagePiece.PIECE_WIDTH, ImagePiece.PIECE_HEIGHT);
+                    ctx.rect(ImagePiece.PIECE_WIDTH * i, ImagePiece.PIECE_WIDTH * j, ImagePiece.PIECE_WIDTH, ImagePiece.PIECE_HEIGHT);
+                    ctx.stroke();
 
                     j++;
 
@@ -113,61 +131,80 @@
                     for(let j = 0; j < GRID_COLUMNS; j++) {
                         const IMG_POSX = Math.round(IMG_PIECE_WIDTH * i);
                         const IMG_POSY = Math.round(IMG_PIECE_HEIGHT * j);
-                        CTX?.drawImage(img, IMG_POSX, IMG_POSY, IMG_PIECE_WIDTH, IMG_PIECE_HEIGHT, ImagePiece.PIECE_WIDTH * i, ImagePiece.PIECE_WIDTH * j, ImagePiece.PIECE_WIDTH, ImagePiece.PIECE_HEIGHT);
-                        CTX?.stroke();
+                        ctx.drawImage(img, IMG_POSX, IMG_POSY, IMG_PIECE_WIDTH, IMG_PIECE_HEIGHT, ImagePiece.PIECE_WIDTH * i, ImagePiece.PIECE_WIDTH * j, ImagePiece.PIECE_WIDTH, ImagePiece.PIECE_HEIGHT);
+                        ctx.stroke();
     
                         const IMAGE = new Image();
-                        IMG_PIECES.push(new ImagePiece(IMAGE, IMG_POSX, IMG_POSY, IMG_PIECE_WIDTH, IMG_PIECE_HEIGHT));
+                        IMG_PIECES.push(new ImagePiece(ctx, IMAGE, ImagePiece.PIECE_WIDTH * i, ImagePiece.PIECE_WIDTH * j, IMG_PIECE_WIDTH, IMG_PIECE_HEIGHT));
                         IMAGE.src = CANVAS.toDataURL();
-                        CTX?.clearRect(0, 0, CANVAS.width, CANVAS.height);
                     }
                 }
             }
-
-            console.log(IMG_PIECES);
+            return IMG_PIECES;
         }
 
-        IMGS.forEach((img) => {
-            const ABORT_CONTROLLER = new AbortController();
-            if(img.complete) {
-                splitInPieces(img);
-                // CTX?.clearRect(0, 0, CANVAS.width, CANVAS.height);
-            } else {
-                img.addEventListener("load", (e) => {
-                    splitInPieces(img);
-                    ABORT_CONTROLLER.abort();
+        if(CTX !== null) {
+            IMGS.forEach((img) => {
+                const ABORT_CONTROLLER = new AbortController();
+                if(img.complete) {
+                    splitInPieces(CTX, img);
                     // CTX?.clearRect(0, 0, CANVAS.width, CANVAS.height);
-                }, { signal : ABORT_CONTROLLER.signal });
-            }
-        })
+                } else {
+                    img.addEventListener("load", (e) => {
+                        splitInPieces(CTX, img);
+                        ABORT_CONTROLLER.abort();
+                        // CTX?.clearRect(0, 0, CANVAS.width, CANVAS.height);
+                    }, { signal : ABORT_CONTROLLER.signal });
+                }
+            })
 
-        function update(requestId : number, ellapsedTimeInMs : number) {
-            if(ellapsedTimeInMs > 3000) {
-                cancelAnimationFrame(requestId);
+            const imgsPiecesByColumn = (() => {
+                return Array.from(IMGS).map((img) => {
+                    const IMG_PIECES = splitInPieces(CTX, img);
+
+                    console.log(IMG_PIECES);
+    
+                    let columns = [];
+                    for(let i = 0; i < 3; i++) {
+                        columns.push(IMG_PIECES.slice(i * 3, (i + 1) * 3));
+                    }
+
+                    return columns;
+                })
+            })();
+
+            function update(requestId : number, ellapsedTimeInMs : number) {
+                imgsPiecesByColumn.forEach((imgPieces) => {
+                    const LAST_COLUMN = imgPieces[imgPieces.length - 1];
+                    console.log(LAST_COLUMN);
+                    LAST_COLUMN.forEach((cell) => {
+                        cell.updatePosition(cell.posX + 1, cell.posY + 1);
+                    })
+                });
             }
+
+            let lastTimestamp : number = 0;
+            const FRAMES_PER_SECOND = 1;
+            const FRAME_DURATION_IN_MS = 1 / FRAMES_PER_SECOND * 1000;
+            let timer = 0;
+            let requestId = 0;
+            let ellapsedTimeInMs = 0;
+            function loop(timestamp : number) {
+                const DELTA_TIME = timestamp - lastTimestamp;
+                lastTimestamp = timestamp;
+                timer += DELTA_TIME;
+                ellapsedTimeInMs += DELTA_TIME;
+    
+                requestId = requestAnimationFrame(loop);
+    
+                if(timer > FRAME_DURATION_IN_MS) {
+                    update(requestId, ellapsedTimeInMs)
+                    timer = 0;
+                }
+            }
+    
+            requestId = requestAnimationFrame(loop)
         }
-        
-        let lastTimestamp : number = 0;
-        const FRAMES_PER_SECOND = 1;
-        const FRAME_DURATION_IN_MS = 1 / FRAMES_PER_SECOND * 1000;
-        let timer = 0;
-        let requestId = 0;
-        let ellapsedTimeInMs = 0;
-        function loop(timestamp : number) {
-            const DELTA_TIME = timestamp - lastTimestamp;
-            lastTimestamp = timestamp;
-            timer += DELTA_TIME;
-            ellapsedTimeInMs += DELTA_TIME;
-
-            requestId = requestAnimationFrame(loop);
-
-            if(timer > FRAME_DURATION_IN_MS) {
-                update(requestId, ellapsedTimeInMs)
-                timer = 0;
-            }
-        }
-
-        requestId = requestAnimationFrame(loop)
     }
 
 }
