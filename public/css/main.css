@@ -102,6 +102,11 @@ img {
   }
 }
 
+footer {
+  background-color: rgb(161, 198, 88);
+  padding-block: 5px;
+}
+
 .img-fader {
   display: grid;
   grid-template-columns: 1fr;

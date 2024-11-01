@@ -32,8 +32,27 @@
         </div>
     </header>
     <main>
+        <section id="hero-banner">
+            <div class="img-fader">
+                {% for i in 0..2 %}
+                    <div class="fader-img">
+                        <img src="public/images/banner-{{ loop.index }}.jpg" alt="">
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
         {% block main %}{% endblock %}
     </main>
-    <footer></footer>
+    <footer class="text-center">
+        <p><b>La Galejade</b></p>
+        <p>17 rue de la république</p>
+        <p>31620 Fronton</p>
+        <p><b>05 62 79 40 96</b></p>
+        <p>Pizzas à base de tomate, pizzas à base de crème, pâtes, boissons dans votre Pizzeria à Fronton</p>
+        <p>Législation & RGPD</p>
+        <p>© 2024 LOURMIERE</p>
+        <p>Mettre à jour mon site internet</p>
+        <p>Créé par Local.fr</p>
+    </footer>
 </body>
 </html>

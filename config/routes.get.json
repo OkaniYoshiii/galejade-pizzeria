@@ -1,3 +1,4 @@
 {
-    "/" : "home.html.twig"
+    "/" : "home.html.twig",
+    "/nos-pizzas" : "products/pizzas.html.twig"
 }

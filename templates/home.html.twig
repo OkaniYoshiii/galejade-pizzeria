@@ -1,15 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-    <section id="hero-banner">
-        <div class="img-fader">
-            {% for i in 0..2 %}
-                <div class="fader-img">
-                    <img src="public/images/banner-{{ loop.index }}.jpg" alt="">
-                </div>
-            {% endfor %}
-        </div>
-    </section>
     <section>
         <div class="container-large | text-center">
             <h1 class="color-secondary">La Galejade : Pizzeria à Fronton</h1>
@@ -35,28 +26,73 @@
             <h2 class="color-secondary">Votre traiteur pour tous vos grands événements ! </h2>
         </div>
         <div class="events-container">
-                <div class="events-card container-tiny">
-                    <p>Soucieux de votre satisfaction, votre pizzaïolo vous propose ses services de traiteur pour tous vos événements, à savoir :</p>
-                    <ul>
-                        <li>Un mariage</li>
-                        <li>Une communion</li>
-                        <li>Un anniversaire</li>
-                        <li>Un baptême</li>
-                        <li>Team building</li>
-                        <li>Repas d'association</li>
-                        <li>Gala</li>
-                    </ul>
-                    <p>Quel que soit le nombre d'invités, des plats élaborés avec passion et à base de produits frais et de qualité vous seront proposés. Vous aurez également le droit à des saveurs variées selon les saisons.</p>
-                    <p>C'est dans un esprit sympathique et familial que votre pizzaïolo est heureux de vous faire découvrir ses différents menus. Il met tout en œuvre pour vous garantir entière satisfaction.</p>
-                    <p>Vous pouvez louer les lieux pour toutes vos occasions.</p>
-                    <div class="img-fader">
-                        {% for i in 0..2 %}
-                        <div class="fader-img">
-                            <img src="public/images/events-{{ loop.index }}.jpg" alt="">
-                        </div>
-                    {% endfor %}
+            <div class="events-card container-tiny">
+                <p>Soucieux de votre satisfaction, votre pizzaïolo vous propose ses services de traiteur pour tous vos événements, à savoir :</p>
+                <ul>
+                    <li>Un mariage</li>
+                    <li>Une communion</li>
+                    <li>Un anniversaire</li>
+                    <li>Un baptême</li>
+                    <li>Team building</li>
+                    <li>Repas d'association</li>
+                    <li>Gala</li>
+                </ul>
+                <p>Quel que soit le nombre d'invités, des plats élaborés avec passion et à base de produits frais et de qualité vous seront proposés. Vous aurez également le droit à des saveurs variées selon les saisons.</p>
+                <p>C'est dans un esprit sympathique et familial que votre pizzaïolo est heureux de vous faire découvrir ses différents menus. Il met tout en œuvre pour vous garantir entière satisfaction.</p>
+                <p>Vous pouvez louer les lieux pour toutes vos occasions.</p>
+                <div class="img-fader">
+                    {% for i in 0..2 %}
+                    <div class="fader-img">
+                        <img src="public/images/events-{{ loop.index }}.jpg" alt="">
                     </div>
+                {% endfor %}
                 </div>
+            </div>
         </div>
+    </section>
+    <section>
+        <div class="container-medium">
+            <h2 class="color-secondary">Zone de chalandise</h2>
+            <ul>
+                <li>Villaudric</li>
+                <li>Fabas</li>
+                <li>Saintt Rustice</li>
+                <li>Pompignan</li>
+                <li>Bouloc</li>
+                <br>
+                <li>Nohic</li>
+                <li>Castelnau d'Estrétefonds</li>
+                <li>Orgueil</li>
+                <li>Grisolles</li>
+                <li>Canals</li>
+                <br>
+                <li>Saint-Sauveur</li>
+                <li>Cépét</li>
+                <li>Grenade</li>
+                <li>Saint Jory</li>
+                <li>Varennes</li>
+                <br>
+                <li>Campsas</li>
+                <li>Villeneuve lès Bouloc</li>
+                <li>Reyniès</li>
+                <li>Labastide Saint Pierre</li>
+                <li>Villebrumier</li>
+                <br>
+                <li>Ondes</li>
+                <li>Villemattier</li>
+                <li>Villemur sur Tarn</li>
+                <li>Dieupentale</li>
+                <li>Vacquiers</li>
+                <br>
+                <li>Gargas</li>
+                <li>Corbarieu</li>
+                <li>Bessens</li>
+                <li>Bondigoux</li>
+                <li>Montbarnier</li>
+            </ul>
+        </div>
+    </section>
+    <section>
+        <iframe allowfullscreen="" frameborder="0" height="450" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d46034.244857588455!2d1.336422123813872!3d43.85292054838504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12ac1c9371b5f003%3A0x3c4e561898916cfc!2s31620+Fronton!5e0!3m2!1sfr!2sfr!4v1505983845417" style="border:0" width="100%"></iframe>
     </section>
 {% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <section>
+        <div class="container-medium | text-center">
+            <h1 class="color-secondary">Pizzas à Fronton (31) : La Galejade</h1>
+            <h2 class="color-primary">Des saveurs variées et des goûts authentiques !</h2>
+            <p>Vous avez envie de manger des pizzas toutes fraîches ? Vous souhaitez déguster des pâtes à base de produits frais ?</p>
+            <p>Votre pizzeria La Galejade vous accueille dans un cadre chaleureux et vous fais découvrir des délices à ne pas oublier !</p>
+            <h3 class="color-secondary">Découvrez la carte de votre pizzeria</h3>
+            <div class="slider slider--slicer">
+                <div class="slider__items">
+                    {% for i in 0..0 %}
+                        <img class="slider__item" src="public/images/pizzas/pizza-{{ loop.index }}.jpg" alt="">
+                    {% endfor %}
+                </div>
+                <div class="slider__controls">
+                    {% for i in 0..3 %}
+                        <input class="slider__control" type="radio" name="slider-control" id="">
+                    {% endfor %}
+                </div>
+            </div>
+
+            <canvas id="pizza-canvas"></canvas>
+        </div>
+    </section>
+{% endblock %}
